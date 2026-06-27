@@ -3,7 +3,7 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - main # Change this to master if your current project default branch is named master
+      - main
 
 jobs:
   build-and-deploy:
@@ -17,16 +17,28 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Build Web Artifact
+      - name: Find and Build Web Artifact
         run: |
-          cd SUERTE_ACTIVITY_6
+          # Automatically find your pubspec.yaml file and jump to it
+          PUBSPEC_PATH=$(find . -name "pubspec.yaml" -print -quit)
+          PROJECT_DIR=$(dirname "$PUBSPEC_PATH")
+          echo "Found project directory at: $PROJECT_DIR"
+          cd "$PROJECT_DIR"
+          
+          # FORCE WEB CONFIGURATION
+          flutter create . --platforms web
+          
+          # Build the web app
           flutter build web --release
+          
+          # Save the path of the built folder for the deployment step
+          echo "BUILT_DIR=$PROJECT_DIR/build/web" >> $GITHUB_ENV
 
       - name: Deploy to GitHub Pages Repository
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.DEPLOY_TOKEN }}
           external_repository: lestergiannesuerte/lestersuerte.github.io
-          publish_dir: ./SUERTE_ACTIVITY_6/build/web
-          publish_branch: main # This forces it to overwrite the main branch of your landing page repo
+          publish_dir: ${{ env.BUILT_DIR }}
+          publish_branch: main
           
