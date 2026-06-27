@@ -20,7 +20,7 @@ jobs:
       - name: Build Web Artifact
         run: |
           cd SUERTE_ACTIVITY_6
-          flutter build web --release --base-href "/geniusqwerty12.github.io/"
+          flutter build web --release --base-href "lestersuerte.github.io/"
 
       - name: Deploy to GitHub Pages Repository
         uses: peaceiris/actions-gh-pages@v4
