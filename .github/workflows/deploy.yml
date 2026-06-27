@@ -3,7 +3,7 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - main # Change this to master if your default branch is master
+      - main # Change this to master if your current project default branch is named master
 
 jobs:
   build-and-deploy:
@@ -20,13 +20,13 @@ jobs:
       - name: Build Web Artifact
         run: |
           cd SUERTE_ACTIVITY_6
-          flutter build web --release --base-href "lestersuerte.github.io/"
+          flutter build web --release
 
       - name: Deploy to GitHub Pages Repository
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.DEPLOY_TOKEN }}
-          external_repository: geniusqwerty12/geniusqwerty12.github.io
+          external_repository: lestergiannesuerte/lestersuerte.github.io
           publish_dir: ./SUERTE_ACTIVITY_6/build/web
-          publish_branch: main
+          publish_branch: main # This forces it to overwrite the main branch of your landing page repo
           
