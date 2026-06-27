@@ -33,11 +33,6 @@ class ProfileScreen extends StatelessWidget {
                         backgroundImage: const AssetImage('assets/images/profile.jpg'),
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         onBackgroundImageError: (exception, stackTrace) {},
-                        child: const Icon(
-                          Icons.person,
-                          size: 50,
-                          color: Colors.white,
-                        ),
                       ),
                       const SizedBox(width: 20),
                       // Full Name
