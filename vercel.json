@@ -1,0 +1,6 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/lestersuerte.github.io/(.*)", "destination": "/$1" }
+  ]
+}
